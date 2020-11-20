@@ -7,17 +7,17 @@
 
 import Foundation
 
-class MemoryGameViewModel {
+class MemoryGameViewModel: ObservableObject {
     //MARK: - Private Properties
-    private(set) var memoryGame: MemoryGame<String>? = nil
+    @Published private var memoryGame: MemoryGame<String> = MemoryGame<String>(contentArray: [ "👻", "🚀", "🧠", "🤬", "👿", "🐉" ])
 
     //MARK: - Public Properties
-    var cards: Array<MemoryGame<String>.Card>? {
-        return memoryGame?.cards
+    var cards: Array<MemoryGame<String>.Card> {
+        return memoryGame.cards
     }
 
     //MARK: - Intents
     func choose(card: MemoryGame<String>.Card) {
-        memoryGame?.choose(card: card)
+        memoryGame.choose(card: card)
     }
 }
