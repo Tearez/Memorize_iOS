@@ -24,7 +24,9 @@ struct CardView: View {
                     RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(lineWidth: Constants.strokeWidth)
                     Text("\(card.content)")
                 } else {
-                    RoundedRectangle(cornerRadius: Constants.cornerRadius).fill()
+                    if !card.isMatched {
+                        RoundedRectangle(cornerRadius: Constants.cornerRadius).fill()
+                    }
                 }
             }
             .font(Font.system(size: getFontSize(for: min(geometry.size.width, geometry.size.height))))

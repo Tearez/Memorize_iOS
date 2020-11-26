@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct MemoryGameView: View {
+    //MARK: - Constants
+    private enum Constants {
+        static let padding: CGFloat = 6.0
+        static let cardViewAspectRatio: CGFloat = 2/3
+    }
+
     @ObservedObject private var viewModel: MemoryGameViewModel
 
     init(viewModel: MemoryGameViewModel) {
@@ -16,15 +22,14 @@ struct MemoryGameView: View {
 
     var body: some View {
         HStack {
-            ForEach(viewModel.cards) { card in
-                CardView(card: card)
-                    .aspectRatio(2/3, contentMode: .fit)
-                    .onTapGesture {
+            GridView(items: viewModel.cards) { card in
+                CardView(card: card).onTapGesture {
                     viewModel.choose(card: card)
                 }
+                    .padding(Constants.padding)
             }
         }
-        .padding()
+        .padding(Constants.padding)
         .foregroundColor(.orange)
     }
 }
