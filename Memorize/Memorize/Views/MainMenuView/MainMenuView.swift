@@ -18,11 +18,10 @@ struct MainMenuView: View {
         static let navigationTextShadowColor: Color = Color.gray.opacity(0.25)
         static let navigationTextCornerRadius: CGFloat = 10.0
         static let navigationTextShadowRadius: CGFloat = 5.0
-
     }
 
     var body: some View {
-        let memoryGameViewModel = MemoryGameViewModel(theme: .blackWhite)
+        let memoryGameViewModel = MemoryGameViewModel(theme: Theme.allCases.randomElement() ?? .blackWhite)
         let memoryGameView = MemoryGameView(viewModel: memoryGameViewModel)
         NavigationView {
             VStack {

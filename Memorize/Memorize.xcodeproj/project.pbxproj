@@ -129,6 +129,7 @@
 		D8B85D3D2570DE6200264FF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D89615CB2570EAD000594BDF /* Theme.swift */,
 				D8B1F6BD2566A1DA00482D48 /* MemoryGame.swift */,
 			);
 			path = Models;
@@ -163,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				D8AA3A3C256FA04A0036D8C1 /* GridLayout.swift */,
-				D89615CB2570EAD000594BDF /* Theme.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

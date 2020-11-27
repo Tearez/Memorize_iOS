@@ -29,7 +29,7 @@ enum Theme: String, CaseIterable {
     var cardBackColor: Color {
         switch self {
             case .blackWhite:
-                return .blue
+                return .black
             case .greyBlue:
                 return .gray
             case .christmas:

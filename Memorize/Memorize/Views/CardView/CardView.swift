@@ -15,6 +15,7 @@ struct CardView: View {
         static let strokeWidth: CGFloat = 3.0
     }
     let card: MemoryGame<String>.Card
+    let theme: Theme
 
     var body: some View {
         GeometryReader { geometry in
@@ -25,7 +26,7 @@ struct CardView: View {
                     Text("\(card.content)")
                 } else {
                     if !card.isMatched {
-                        RoundedRectangle(cornerRadius: Constants.cornerRadius).fill()
+                        RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(theme.cardBackColor)
                     }
                 }
             }
@@ -41,6 +42,6 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     private static let card: MemoryGame<String>.Card = MemoryGame<String>.Card(id: 0, content: "😕")
     static var previews: some View {
-        CardView(card: card)
+        CardView(card: card, theme: .blackWhite)
     }
 }

@@ -8,6 +8,10 @@
 import Foundation
 
 struct MemoryGame<T: Equatable> {
+    private let mistakePoints: Int = -1
+    private let matchPoints: Int = 2
+
+    var points: Int
     var cards: Array<Card>
     var indexOfFaceUpCard: Int? {
         get {
@@ -27,6 +31,7 @@ struct MemoryGame<T: Equatable> {
             cards.append(Card(id: index*2 + 1, content: contentArray[index]))
         }
         cards.shuffle()
+        points = 0
     }
 
     mutating func choose(card: Card) {
@@ -39,11 +44,27 @@ struct MemoryGame<T: Equatable> {
             if cards[index].content == cards[potentialMatchedIndex].content {
                 cards[index].isMatched = true
                 cards[potentialMatchedIndex].isMatched = true
+                addPoints()
+            } else {
+                if cards[index].hasBeenSeen {
+                    substractPoints()
+                } else {
+                    cards[index].hasBeenSeen = true
+                }
             }
-            self.cards[index].isFaceUp = true
+            cards[index].isFaceUp = true
         } else {
             indexOfFaceUpCard = index
+            cards[index].hasBeenSeen = true
         }
+    }
+
+    private mutating func substractPoints() {
+        points = points + mistakePoints
+    }
+
+    private mutating func addPoints() {
+        points = points + matchPoints
     }
 
     struct Card: Identifiable {
@@ -51,6 +72,7 @@ struct MemoryGame<T: Equatable> {
 
         var isFaceUp: Bool = false
         var isMatched: Bool = false
+        var hasBeenSeen: Bool = false
         var content: T
     }
 }
