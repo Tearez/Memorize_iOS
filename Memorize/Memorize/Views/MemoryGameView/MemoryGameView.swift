@@ -21,21 +21,25 @@ struct MemoryGameView: View {
     }
 
     var body: some View {
-        HStack {
-            GridView(items: viewModel.cards) { card in
-                CardView(card: card).onTapGesture {
-                    viewModel.choose(card: card)
-                }
+        VStack {
+            HStack() {
+                GridView(items: viewModel.cards) { card in
+                    CardView(card: card).onTapGesture {
+                        viewModel.choose(card: card)
+                    }
                     .padding(Constants.padding)
+                }
             }
+            .padding(Constants.padding)
+            .foregroundColor(.orange)
         }
-        .padding(Constants.padding)
-        .foregroundColor(.orange)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoryGameView(viewModel: MemoryGameViewModel())
+        Group {
+            MemoryGameView(viewModel: MemoryGameViewModel(theme: .blackWhite))
+        }
     }
 }

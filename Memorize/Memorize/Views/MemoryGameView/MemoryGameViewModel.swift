@@ -9,7 +9,12 @@ import Foundation
 
 class MemoryGameViewModel: ObservableObject {
     //MARK: - Private Properties
-    @Published private var memoryGame: MemoryGame<String> = MemoryGame<String>(contentArray: [ "👻", "🚀", "🧠", "🤬", "👿", "🐉" ])
+    @Published private var memoryGame: MemoryGame<String>
+
+
+    init(theme: Theme) {
+        memoryGame = MemoryGame(contentArray: theme.itemsList)
+    }
 
     //MARK: - Public Properties
     var cards: Array<MemoryGame<String>.Card> {
