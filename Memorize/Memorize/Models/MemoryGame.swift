@@ -10,10 +10,7 @@ import Foundation
 struct MemoryGame<T: Equatable> {
     private let mistakePoints: Int = -1
     private let matchPoints: Int = 2
-
-    var points: Int
-    var cards: Array<Card>
-    var indexOfFaceUpCard: Int? {
+    private var indexOfFaceUpCard: Int? {
         get {
             cards.indices.filter { cards[$0].isFaceUp }.only
         }
@@ -23,6 +20,9 @@ struct MemoryGame<T: Equatable> {
             }
         }
     }
+
+    private(set) var points: Int
+    private(set) var cards: Array<Card>
 
     init(contentArray: [T]) {
         cards = Array<Card>()
@@ -60,11 +60,15 @@ struct MemoryGame<T: Equatable> {
     }
 
     private mutating func substractPoints() {
-        points = points + mistakePoints
+        updatePoints(by: mistakePoints)
     }
 
     private mutating func addPoints() {
-        points = points + matchPoints
+        updatePoints(by: matchPoints)
+    }
+
+    private mutating func updatePoints(by amount: Int) {
+        points = points + amount
     }
 
     struct Card: Identifiable {

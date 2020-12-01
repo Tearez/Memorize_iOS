@@ -14,21 +14,33 @@ struct CardView: View {
         static let fontSizeMultiplier: CGFloat = 0.75
         static let strokeWidth: CGFloat = 3.0
     }
-    let card: MemoryGame<String>.Card
-    let theme: Theme
+    private let card: MemoryGame<String>.Card
+    private let theme: Theme
+
+    init(card: MemoryGame<String>.Card, theme: Theme) {
+        self.card = card
+        self.theme = theme
+    }
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if card.isFaceUp {
-                    RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(Color.white)
-                    RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(lineWidth: Constants.strokeWidth)
-                    Text("\(card.content)")
-                } else {
-                    if !card.isMatched {
-                        RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(theme.cardBackColor)
-                    }
-                }
+                PieChartView(startAngle: Angle.degrees(0 - 90),
+                             endAngle: Angle.degrees(110 - 90),
+                             clockwise: true)
+                    .foregroundColor(theme.cardBackColor)
+                    .padding(15)
+                    .opacity(0.4)
+                Text("\(card.content)")
+//                if card.isFaceUp {
+//                    RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(Color.white)
+//                    RoundedRectangle(cornerRadius: Constants.cornerRadius)
+//                        .strokeBorder(theme.cardBackColor, lineWidth: 5)
+//                } else {
+//                    if !card.isMatched {
+//                        RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(theme.cardBackColor)
+//                    }
+//                }
             }
             .font(Font.system(size: getFontSize(for: min(geometry.size.width, geometry.size.height))))
         }
@@ -40,8 +52,9 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
-    private static let card: MemoryGame<String>.Card = MemoryGame<String>.Card(id: 0, content: "😕")
+    private static var card: MemoryGame<String>.Card = MemoryGame<String>.Card(id: 0, content: "😕")
     static var previews: some View {
-        CardView(card: card, theme: .blackWhite)
+        card.isFaceUp = true
+        return CardView(card: card, theme: .halloween)
     }
 }
